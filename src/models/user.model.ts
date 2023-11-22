@@ -1,16 +1,15 @@
 import { Schema, model } from 'mongoose';
 import { IAddress, IName, IUser } from '../interfaces/user.interface';
-import { orderSchema } from './order.model';
 
 const nameSchema = new Schema<IName>({
-  firstName: { type: String, trim: true },
-  lastName: { type: String, trim: true },
+  firstName: { type: String, trim: true, required: true },
+  lastName: { type: String, trim: true, required: true },
 });
 
 const addressSchema = new Schema<IAddress>({
-  street: { type: String, trim: true },
-  city: { type: String, trim: true },
-  country: { type: String, trim: true },
+  street: { type: String, trim: true, required: true },
+  city: { type: String, trim: true, required: true },
+  country: { type: String, trim: true, required: true },
 });
 
 // user schema
@@ -26,10 +25,9 @@ const userSchema = new Schema<IUser>({
     trim: true,
     unique: true,
   },
-  isActive: { type: Boolean },
+  isActive: { type: Boolean, required: true },
   hobbies: { type: [String], required: true },
   address: addressSchema,
-  orders: orderSchema,
 });
 
 export const User = model<IUser>('User', userSchema);

@@ -1,5 +1,3 @@
-import { IOrder } from './order.interface';
-
 export interface IName {
   firstName: string;
   lastName: string;
@@ -20,5 +18,4 @@ export interface IUser {
   isActive: boolean;
   hobbies: string[];
   address: IAddress;
-  orders?: IOrder[];
 }
