@@ -14,10 +14,11 @@ export const userSchemaValidation = z.object({
   username: z.string().trim().min(3),
   password: z
     .string()
-    .min(6)
-    .regex(/^(?=.*[0-9])(?=.*[!@#$%^&*])/, {
+    .min(6, { message: 'Password must be at least 6 characters long' })
+    .max(20, { message: 'Password cannot be more than 20 characters long' })
+    .regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[!@#$%^&*])/, {
       message:
-        'Password must contain at least 1 digit and 1 special character (!@#$%^&*)',
+        'Password must contain at least 1 digit, 1 lowercase letter, and 1 special character (!@#$%^&*)',
     }),
   fullName: nameSchemaValidation,
   age: z.number().min(6),

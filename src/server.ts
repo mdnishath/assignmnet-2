@@ -1,14 +1,12 @@
 import app from './app';
-import { PORT } from './config';
+import { DB_URL_LOCAL, PORT } from './config';
 import mongoose from 'mongoose';
-
-// getting-started.js
 
 main().catch((err) => console.log(err));
 
 async function main() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/test');
+    await mongoose.connect(DB_URL_LOCAL);
     app.listen(PORT, () => {
       console.log(`Server is listening on port ${PORT}`);
     });
