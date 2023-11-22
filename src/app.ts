@@ -8,6 +8,9 @@ app.use(express.json());
 app.use(cors());
 
 // all routes here
-
 app.use('/api/users', UserRoute);
+
+// notfound route handeling
+
+// all error handleing
 export default app;
