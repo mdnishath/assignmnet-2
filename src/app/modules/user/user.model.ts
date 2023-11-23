@@ -70,7 +70,16 @@ userSchema.post('save', function (doc, next) {
   }
   next();
 });
-
+// hassing password when updating
+userSchema.pre('findOneAndUpdate', async function (this: any, next) {
+  try {
+    // console.log('Pre Middleware ===>', this._update);
+    this._update.password = await bcrypt.hash(this._update.password, 10);
+    next();
+  } catch (error: any) {
+    return next(error);
+  }
+});
 // exclude password field for all find query
 userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
   this.select('-password');
