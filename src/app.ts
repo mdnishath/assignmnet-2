@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { z } from 'zod';
 import { UserRoute } from './app/modules/user/user.route';
+
 const app: Application = express();
 
 //parssing

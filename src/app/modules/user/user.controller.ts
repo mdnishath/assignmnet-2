@@ -1,15 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 import { UserServices } from './user.service';
-import { userSchemaValidation } from './user.validation';
+// import { userSchemaValidation } from './user.validation';
 
 // create user cotroller
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // request driven data
     const user = await req.body;
-    const validatedUserData = userSchemaValidation.parse(user);
+    // const validatedUserData = userSchemaValidation.parse(user);
     // call user service
-    const data = await UserServices.createUser(validatedUserData);
+    const data = await UserServices.createUser(user);
     res.status(201).json({
       success: true,
       message: 'User created successfully',

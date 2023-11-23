@@ -1,3 +1,7 @@
+// import { Model } from 'mongoose';
+
+import { Model } from 'mongoose';
+
 export interface IName {
   firstName: string;
   lastName: string;
@@ -24,4 +28,8 @@ export interface IUser {
   hobbies: string[];
   address: IAddress;
   orders?: IProduct[];
+}
+// UserModle
+export interface IUserModel extends Model<IUser> {
+  isUserExists(id: number): Promise<IUser | null>;
 }

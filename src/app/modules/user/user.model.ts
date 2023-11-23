@@ -1,5 +1,5 @@
-import { Document, Schema, model } from 'mongoose';
-import { IAddress, IName, IProduct, IUser } from './user.interface';
+import { Schema, model } from 'mongoose';
+import { IAddress, IName, IProduct, IUser, IUserModel } from './user.interface';
 
 const nameSchema = new Schema<IName>({
   firstName: { type: String, trim: true, required: true },
@@ -18,7 +18,7 @@ const productSchema = new Schema<IProduct>({
 });
 
 // user schema
-const userSchema = new Schema<IUser & Document>({
+const userSchema = new Schema<IUser>({
   userId: {
     type: Number,
     unique: true,
@@ -47,4 +47,8 @@ const userSchema = new Schema<IUser & Document>({
   orders: { type: [productSchema], default: [] },
 });
 
-export const User = model<IUser>('User', userSchema);
+userSchema.statics.isUserExists = async function (userId) {
+  const existingUser = await User.findOne({ userId });
+  return existingUser;
+};
+export const User = model<IUser, IUserModel>('User', userSchema);

@@ -3,6 +3,9 @@ import { User } from './user.model';
 
 // create a new user
 const createUser = async (user: IUser): Promise<IUser | null> => {
+  if (await User.isUserExists(user.userId)) {
+    throw new Error(`User already exists`);
+  }
   // create a new user into the database
   const result = await User.create(user);
   return result;
