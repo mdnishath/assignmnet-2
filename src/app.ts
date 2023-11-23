@@ -23,8 +23,6 @@ app.all('*', (req: Request, res: Response) => {
 // Global error handler
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof z.ZodError) {
-    // const errorMessages = error.errors.map((err) => err.message);
-    // const errorCodes = error.errors.map((err) => err.code);
     res.status(500).json({
       success: false,
       message: 'Zod validetion error',
@@ -37,7 +35,10 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({
       success: false,
       message: error.message,
-      error,
+      error: {
+        code: error?.code,
+        description: error.message,
+      },
     });
   }
   next();

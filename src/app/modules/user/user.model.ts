@@ -1,5 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Document, Query, Schema, model } from 'mongoose';
 import { IAddress, IName, IProduct, IUser, IUserModel } from './user.interface';
+import bcrypt from 'bcrypt';
 
 const nameSchema = new Schema<IName>({
   firstName: { type: String, trim: true, required: true },
@@ -45,6 +46,35 @@ const userSchema = new Schema<IUser>({
   hobbies: { type: [String], required: true },
   address: addressSchema,
   orders: { type: [productSchema], default: [] },
+});
+
+// hassing password before inserting into DB
+userSchema.pre('save', async function (next) {
+  try {
+    this.password = await bcrypt.hash(this.password, 10);
+    next();
+  } catch (error: any) {
+    next(error);
+  }
+});
+//After saving data exclude password
+userSchema.post('save', function (doc, next) {
+  if (doc.password) {
+    const noPassDoc: Omit<IUser, 'password'> & { password?: string } = {
+      ...doc.toObject(),
+      password: undefined,
+    };
+
+    // Update the original document with the new object
+    Object.assign(doc, noPassDoc);
+  }
+  next();
+});
+
+// exclude password field for all find query
+userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
+  this.select('-password');
+  next();
 });
 
 userSchema.statics.isUserExists = async function (userId) {
