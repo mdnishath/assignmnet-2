@@ -1,12 +1,16 @@
 import { IUserNotFound } from '../modules/user/user.interface';
 
-export function userNotFound(): IUserNotFound {
+export function userNotFound(
+  message: string,
+  code: number,
+  description: string,
+): IUserNotFound {
   return {
     success: false,
-    message: 'User not found',
+    message,
     error: {
-      code: 404,
-      description: 'User not found!',
+      code,
+      description,
     },
   };
 }
