@@ -36,10 +36,7 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({
       success: false,
       message: error.message,
-      error: {
-        code: error.code,
-        description: error.message,
-      },
+      error,
     });
   }
   next();

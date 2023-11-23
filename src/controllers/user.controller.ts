@@ -33,8 +33,26 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
     next(error);
   }
 };
+// get user cotroller
+const getUser = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // call user service
+    const { userId } = req.params;
+    const data = await UserServices.getUser(userId);
+    //TODO: check if user exists using statice or instance method
+
+    res.status(201).json({
+      success: true,
+      message: 'User retrieved successfully',
+      data,
+    });
+  } catch (error: any) {
+    next(error);
+  }
+};
 
 export const UserControllers = {
   createUser,
   getUsers,
+  getUser,
 };

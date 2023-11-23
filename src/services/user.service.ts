@@ -13,7 +13,10 @@ const getUsers = async (): Promise<IUser[]> => {
   return result;
 };
 //get single user
-const getUser = () => {};
+const getUser = async (userId: string): Promise<IUser | null> => {
+  const result = await User.findOne({ userId });
+  return result;
+};
 //Update user
 const updateUser = () => {};
 // Delete user

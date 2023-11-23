@@ -19,16 +19,16 @@ const productSchema = new Schema<IProduct>({
 
 // user schema
 const userSchema = new Schema<IUser>({
-  userId: { type: Number, required: true, trim: true },
+  userId: { type: Number, unique: true, required: true, trim: true },
   username: { type: String, required: true, trim: true, unique: true },
   password: { type: String, required: true, trim: true },
   fullName: nameSchema,
   age: { type: Number, required: true },
   email: {
     type: String,
+    unique: true,
     required: true,
     trim: true,
-    unique: true,
   },
   isActive: { type: Boolean, required: true },
   hobbies: { type: [String], required: true },
