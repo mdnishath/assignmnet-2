@@ -13,14 +13,23 @@ const getUsers = async (): Promise<IUser[]> => {
   return result;
 };
 //get single user
-const getUser = async (userId: string): Promise<IUser | null> => {
+const getUser = async (userId: number): Promise<IUser | null> => {
   const result = await User.findOne({ userId });
   return result;
 };
 //Update user
-const updateUser = () => {};
+const updateUser = async (
+  userId: number,
+  data: Partial<IUser>,
+): Promise<IUser | null> => {
+  const result = await User.findOneAndUpdate({ userId }, data, { new: true });
+  return result;
+};
 // Delete user
-const deleteUser = () => {};
+const deleteUser = async (userId: number): Promise<IUser | null> => {
+  const result = await User.findOneAndDelete({ userId });
+  return result;
+};
 export const UserServices = {
   createUser,
   getUsers,

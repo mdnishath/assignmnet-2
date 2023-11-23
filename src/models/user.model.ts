@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 import { IAddress, IName, IProduct, IUser } from '../interfaces/user.interface';
 
 const nameSchema = new Schema<IName>({
@@ -18,9 +18,20 @@ const productSchema = new Schema<IProduct>({
 });
 
 // user schema
-const userSchema = new Schema<IUser>({
-  userId: { type: Number, unique: true, required: true, trim: true },
-  username: { type: String, required: true, trim: true, unique: true },
+const userSchema = new Schema<IUser & Document>({
+  userId: {
+    type: Number,
+    unique: true,
+    required: true,
+    trim: true,
+    immutable: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
   password: { type: String, required: true, trim: true },
   fullName: nameSchema,
   age: { type: Number, required: true },

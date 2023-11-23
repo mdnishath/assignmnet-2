@@ -14,7 +14,7 @@ export interface IProduct {
   quantity: number;
 }
 export interface IUser {
-  userId: number;
+  readonly userId: number;
   username: string;
   password: string;
   fullName: IName;
