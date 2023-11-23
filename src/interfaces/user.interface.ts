@@ -8,6 +8,11 @@ export interface IAddress {
   country: string;
 }
 
+export interface IProduct {
+  productName: string;
+  price: number;
+  quantity: number;
+}
 export interface IUser {
   userId: number;
   username: string;
@@ -18,4 +23,5 @@ export interface IUser {
   isActive: boolean;
   hobbies: string[];
   address: IAddress;
+  orders?: IProduct[];
 }

@@ -9,6 +9,12 @@ const addressSchemaValidation = z.object({
   city: z.string().trim(),
   country: z.string().trim(),
 });
+
+const productSchemaVelidation = z.object({
+  productName: z.string().min(1),
+  price: z.number(),
+  quantity: z.number().int(),
+});
 export const userSchemaValidation = z.object({
   userId: z.number(),
   username: z.string().trim().min(3),
@@ -26,4 +32,5 @@ export const userSchemaValidation = z.object({
   isActive: z.boolean(),
   hobbies: z.array(z.string().trim()),
   address: addressSchemaValidation,
+  orders: z.array(productSchemaVelidation).optional(),
 });
