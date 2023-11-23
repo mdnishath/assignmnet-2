@@ -1,4 +1,5 @@
-import { IUser, IUserNotFound } from './user.interface';
+import { userNotFound } from '../../lib';
+import { IUser } from './user.interface';
 import { User } from './user.model';
 
 // create a new user
@@ -22,16 +23,7 @@ const getUser = async (userId: number): Promise<IUser | null> => {
     const result = await User.findOne({ userId });
     return result;
   } else {
-    const userNotFoundError: IUserNotFound = {
-      success: false,
-      message: 'User not found',
-      error: {
-        code: 404,
-        description: 'User not found!',
-      },
-    };
-
-    throw userNotFoundError;
+    throw userNotFound();
   }
 };
 //Update user
