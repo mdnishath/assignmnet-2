@@ -74,7 +74,10 @@ userSchema.post('save', function (doc, next) {
 userSchema.pre('findOneAndUpdate', async function (this: any, next) {
   try {
     // console.log('Pre Middleware ===>', this._update);
-    this._update.password = await bcrypt.hash(this._update.password, 10);
+    if (this._update.password) {
+      this._update.password = await bcrypt.hash(this._update.password, 10);
+      next();
+    }
     next();
   } catch (error: any) {
     return next(error);

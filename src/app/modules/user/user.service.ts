@@ -1,5 +1,5 @@
 import { userNotFound } from '../../lib';
-import { IUser } from './user.interface';
+import { IProduct, IUser } from './user.interface';
 import { User } from './user.model';
 
 // create a new user
@@ -53,10 +53,30 @@ const deleteUser = async (userId: number): Promise<IUser | null> => {
     throw userNotFound('User not found', 404, 'User not found!');
   }
 };
+
+// update user order
+const updateUserOrder = async (
+  userId: number,
+  product: Partial<IProduct>,
+): Promise<IUser | null> => {
+  if (await User.isUserExists(userId)) {
+    const result = await User.findOneAndUpdate(
+      { userId },
+      { $push: { orders: product as IProduct } },
+      { new: true },
+    );
+
+    return result;
+  } else {
+    throw userNotFound('User not found', 404, 'User not found!');
+  }
+};
+
 export const UserServices = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  updateUserOrder,
 };

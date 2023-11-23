@@ -120,10 +120,36 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
+const updateUserOrder = async (req: Request, res: Response) => {
+  try {
+    // call user service
+
+    const { userId } = req.params;
+    const _product = await req.body;
+    await UserServices.updateUserOrder(parseInt(userId), _product);
+
+    //TODO: check if user exists using statice or instance method
+    res.status(201).json({
+      success: true,
+      message: 'Order created successfully!',
+      data: null,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: error?.error?.code,
+        description: error?.message,
+      },
+    });
+  }
+};
 export const UserControllers = {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
+  updateUserOrder,
 };
