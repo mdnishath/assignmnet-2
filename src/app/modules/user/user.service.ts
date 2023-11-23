@@ -1,24 +1,38 @@
-import { IUser } from './user.interface';
+import { IUser, IUserNotFound } from './user.interface';
 import { User } from './user.model';
 
 // create a new user
 const createUser = async (user: IUser): Promise<IUser | null> => {
-  if (await User.isUserExists(user.userId)) {
-    throw new Error(`User already exists`);
-  }
   // create a new user into the database
   const result = await User.create(user);
   return result;
 };
 //get all users
 const getUsers = async (): Promise<IUser[]> => {
-  const result = await User.find({});
+  const result = await User.find({}).select(
+    'userId username fullName.firstName fullName.lastName age email address.street address.city address.country',
+  );
   return result;
 };
 //get single user
 const getUser = async (userId: number): Promise<IUser | null> => {
-  const result = await User.findOne({ userId });
-  return result;
+  // console.log(await User.isUserExists(userId));
+
+  if (await User.isUserExists(userId)) {
+    const result = await User.findOne({ userId });
+    return result;
+  } else {
+    const userNotFoundError: IUserNotFound = {
+      success: false,
+      message: 'User not found',
+      error: {
+        code: 404,
+        description: 'User not found!',
+      },
+    };
+
+    throw userNotFoundError;
+  }
 };
 //Update user
 const updateUser = async (

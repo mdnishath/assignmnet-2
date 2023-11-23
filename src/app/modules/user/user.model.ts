@@ -86,8 +86,8 @@ userSchema.pre(/^find/, function (this: Query<IUser, Document>, next) {
   next();
 });
 
-userSchema.statics.isUserExists = async function (userId) {
+userSchema.statics.isUserExists = async function (userId): Promise<boolean> {
   const existingUser = await User.findOne({ userId });
-  return existingUser;
+  return existingUser ? true : false;
 };
 export const User = model<IUser, IUserModel>('User', userSchema);

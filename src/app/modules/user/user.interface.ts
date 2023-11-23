@@ -31,5 +31,15 @@ export interface IUser {
 }
 // UserModle
 export interface IUserModel extends Model<IUser> {
-  isUserExists(id: number): Promise<IUser | null>;
+  isUserExists(id: number): boolean;
+}
+
+// user not found
+export interface IUserNotFound {
+  success: boolean;
+  message: string;
+  error: {
+    code: number;
+    description: string;
+  };
 }

@@ -20,7 +20,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 // get users cotroller
-const getUsers = async (req: Request, res: Response, next: NextFunction) => {
+const getUsers = async (req: Request, res: Response) => {
   try {
     // call user service
     const data = await UserServices.getUsers();
@@ -30,11 +30,18 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
       data,
     });
   } catch (error: any) {
-    next(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: error?.code,
+        description: error.message,
+      },
+    });
   }
 };
 // get user cotroller
-const getUser = async (req: Request, res: Response, next: NextFunction) => {
+const getUser = async (req: Request, res: Response) => {
   try {
     // call user service
     const { userId } = req.params;
@@ -46,11 +53,12 @@ const getUser = async (req: Request, res: Response, next: NextFunction) => {
       data,
     });
   } catch (error: any) {
-    next(error);
+    console.log(error);
+    res.status(500).json(error);
   }
 };
 // update user cotroller
-const updateUser = async (req: Request, res: Response, next: NextFunction) => {
+const updateUser = async (req: Request, res: Response) => {
   try {
     // call user service
     const { userId } = req.params;
@@ -63,11 +71,18 @@ const updateUser = async (req: Request, res: Response, next: NextFunction) => {
       data,
     });
   } catch (error: any) {
-    next(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: error?.code,
+        description: error.message,
+      },
+    });
   }
 };
 // Delete user cotroller
-const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+const deleteUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
     await UserServices.deleteUser(parseInt(userId));
@@ -78,7 +93,14 @@ const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
       data: null,
     });
   } catch (error: any) {
-    next(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: error?.code,
+        description: error.message,
+      },
+    });
   }
 };
 

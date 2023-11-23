@@ -1,6 +1,5 @@
-import express, { Application, NextFunction, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { z } from 'zod';
 import { UserRoute } from './app/modules/user/user.route';
 
 const app: Application = express();
@@ -21,26 +20,5 @@ app.all('*', (req: Request, res: Response) => {
 });
 
 // Global error handler
-app.use((error: any, req: Request, res: Response, next: NextFunction) => {
-  if (error instanceof z.ZodError) {
-    res.status(500).json({
-      success: false,
-      message: 'Zod validetion error',
-      error: {
-        code: error.errors.map((err) => err.code),
-        description: error.errors.map((err) => err.message),
-      },
-    });
-  } else {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      error: {
-        code: error?.code,
-        description: error.message,
-      },
-    });
-  }
-  next();
-});
+
 export default app;
