@@ -1,5 +1,6 @@
-import express, { Application } from 'express';
+import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
+import { z } from 'zod';
 import { UserRoute } from './routes/user.route';
 const app: Application = express();
 
@@ -10,7 +11,37 @@ app.use(cors());
 // all routes here
 app.use('/api/users', UserRoute);
 
-// notfound route handeling
+//Global route error handler
+app.all('*', (req: Request, res: Response) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found',
+  });
+});
 
-// all error handleing
+// Global error handler
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+  if (error instanceof z.ZodError) {
+    // const errorMessages = error.errors.map((err) => err.message);
+    // const errorCodes = error.errors.map((err) => err.code);
+    res.status(500).json({
+      success: false,
+      message: 'Zod validetion error',
+      error: {
+        code: error.errors.map((err) => err.code),
+        description: error.errors.map((err) => err.message),
+      },
+    });
+  } else {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: error.code,
+        description: error.message,
+      },
+    });
+  }
+  next();
+});
 export default app;

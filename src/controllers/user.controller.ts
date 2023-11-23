@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { UserServices } from '../services/user.service';
 import { userSchemaValidation } from '../validations/user.validation';
 
 // create user cotroller
-const createUser = async (req: Request, res: Response) => {
+const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // request driven data
     const user = await req.body;
@@ -16,16 +16,25 @@ const createUser = async (req: Request, res: Response) => {
       data,
     });
   } catch (error: any) {
-    console.log(error);
-
+    next(error);
+  }
+};
+// get users cotroller
+const getUsers = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    // call user service
+    const data = await UserServices.getUsers();
     res.status(201).json({
-      success: false,
-      message: 'Internal error occurred',
-      error,
+      success: true,
+      message: 'Users retrieved successfully',
+      data,
     });
+  } catch (error: any) {
+    next(error);
   }
 };
 
 export const UserControllers = {
   createUser,
+  getUsers,
 };

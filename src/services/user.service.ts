@@ -8,7 +8,10 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
   return result;
 };
 //get all users
-const getUsers = () => {};
+const getUsers = async (): Promise<IUser[]> => {
+  const result = await User.find({});
+  return result;
+};
 //get single user
 const getUser = () => {};
 //Update user
