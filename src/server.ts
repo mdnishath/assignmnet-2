@@ -1,5 +1,5 @@
 import app from './app';
-import { DB_URL_LOCAL, PORT } from './config';
+import { DB_URL_LOCAL, PORT } from './app/config';
 import mongoose from 'mongoose';
 
 main().catch((err) => console.log(err));

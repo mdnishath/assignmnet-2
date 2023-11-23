@@ -1,7 +1,7 @@
 import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { z } from 'zod';
-import { UserRoute } from './routes/user.route';
+import { UserRoute } from './app/modules/user/user.route';
 const app: Application = express();
 
 //parssing

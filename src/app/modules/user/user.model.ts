@@ -1,5 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
-import { IAddress, IName, IProduct, IUser } from '../interfaces/user.interface';
+import { IAddress, IName, IProduct, IUser } from './user.interface';
 
 const nameSchema = new Schema<IName>({
   firstName: { type: String, trim: true, required: true },

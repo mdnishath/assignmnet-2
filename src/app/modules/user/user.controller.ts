@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { UserServices } from '../services/user.service';
-import { userSchemaValidation } from '../validations/user.validation';
+import { UserServices } from './user.service';
+import { userSchemaValidation } from './user.validation';
 
 // create user cotroller
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
