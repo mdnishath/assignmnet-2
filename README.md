@@ -6,14 +6,14 @@ A REST API project built with Express, Mongoose, Zod, CORS, and dotenv for user 
 
 - Create user
 - Get all users
-- Update User 
+- Update User
 - Delete User Account
 - Update orders
 - Product price calculation for each user orders
 - Data velidation
 
+## Packges
 
-## Packges 
 - express
 - mongoose
 - zod
@@ -21,9 +21,6 @@ A REST API project built with Express, Mongoose, Zod, CORS, and dotenv for user 
 - cors
 - bcrypt
 
-## Live link 
+## Live link
 
-[https://vercel.com/](https://vercel.com/)
-
-
-
+[https://assignment-2-alpha-green.vercel.app/](https://assignment-2-alpha-green.vercel.app/)
