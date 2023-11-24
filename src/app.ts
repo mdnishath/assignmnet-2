@@ -8,6 +8,11 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
+//welcome to the api
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({ success: true, message: 'Welcome to the api' });
+});
+
 // all routes here
 app.use('/api/users', UserRoute);
 
