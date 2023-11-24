@@ -145,6 +145,50 @@ const updateUserOrder = async (req: Request, res: Response) => {
     });
   }
 };
+// get orders cotroller
+const getOrders = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    // call user service
+    const data = await UserServices.getOrders(parseInt(userId));
+    res.status(201).json({
+      success: true,
+      message: 'Order fetched successfully!',
+      data,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: error?.error?.code,
+        description: error?.message,
+      },
+    });
+  }
+};
+// get total price controller
+const getTotalPrice = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    // call user service
+    const data = await UserServices.getTotalPrice(parseInt(userId));
+    res.status(201).json({
+      success: true,
+      message: 'Total price calculated successfully!',
+      data,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: {
+        code: error?.error?.code,
+        description: error?.message,
+      },
+    });
+  }
+};
 export const UserControllers = {
   createUser,
   getUsers,
@@ -152,4 +196,6 @@ export const UserControllers = {
   updateUser,
   deleteUser,
   updateUserOrder,
+  getOrders,
+  getTotalPrice,
 };

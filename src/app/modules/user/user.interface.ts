@@ -1,5 +1,6 @@
 // import { Model } from 'mongoose';
 
+import { Document } from 'mongoose';
 import { Model } from 'mongoose';
 
 export interface IName {
@@ -17,7 +18,8 @@ export interface IProduct {
   price: number;
   quantity: number;
 }
-export interface IUser {
+
+export interface IUser extends Document {
   readonly userId: number;
   username: string;
   password: string;
