@@ -13,7 +13,7 @@ const getUsers = async (): Promise<IUser[]> => {
   const result = await User.find({}).select(
     '-_id userId username fullName.firstName fullName.lastName age email address.street address.city address.country',
   );
-  console.log(result);
+  // console.log(result);
   if (!result.length) {
     throw userNotFound('No users found', 404, 'No users found!');
   }
@@ -35,7 +35,7 @@ const updateUser = async (
   userId: number,
   data: Partial<IUser>,
 ): Promise<IUser | null> => {
-  console.log(await User.isUserExists(userId));
+  // console.log(await User.isUserExists(userId));
 
   if (await User.isUserExists(userId)) {
     const result = await User.findOneAndUpdate({ userId }, data, { new: true });
@@ -80,7 +80,7 @@ const getOrders = async (userId: number) => {
     const result = await User.findOne({ userId }).select(
       '-_id orders.productName orders.price orders.quantity',
     );
-    console.log(result);
+    // console.log(result);
 
     return result;
   } else {
@@ -103,7 +103,7 @@ const getTotalPrice = async (userId: number) => {
     },
     { $project: { totalPrice: { $round: ['$totalPrice', 2] } } },
   ]);
-  console.log(result);
+  // console.log(result);
 
   return result;
 };

@@ -33,6 +33,7 @@ export interface IUser extends Document {
 }
 // UserModle
 export interface IUserModel extends Model<IUser> {
+  // eslint-disable-next-line no-unused-vars
   isUserExists(id: number): boolean;
 }
 
