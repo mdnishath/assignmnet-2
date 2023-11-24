@@ -11,7 +11,7 @@ const createUser = async (user: IUser): Promise<IUser | null> => {
 //get all users
 const getUsers = async (): Promise<IUser[]> => {
   const result = await User.find({}).select(
-    'userId username fullName.firstName fullName.lastName age email address.street address.city address.country',
+    '-_id userId username fullName.firstName fullName.lastName age email address.street address.city address.country',
   );
   console.log(result);
   if (!result.length) {
